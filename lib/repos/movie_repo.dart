@@ -6,7 +6,7 @@ import '../models/movie_response.dart';
 import '../models/person_response.dart';
 
 class MovieRepo {
-  final String apiKey = "<<themoviedb.org - ApiKey here>>";
+  final String apiKey = "866f10c32b5771ad535d1c1bca14038a";
   static String mainUrl = "https://api.themoviedb.org/3";
   final Dio _dio = Dio();
   var getPopularUrl = '$mainUrl/movie/top_rated';
@@ -80,7 +80,7 @@ class MovieRepo {
   Future<MovieResponse> getMovieByGenre(int id) async {
     var params = {
       "api_key": apiKey,
-      "language": "en_US",
+      "language": "en-US",
       "page": 1,
       "with_genres": id,
     };
