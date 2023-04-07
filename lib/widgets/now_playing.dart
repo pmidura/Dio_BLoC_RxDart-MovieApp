@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_indicator/page_indicator.dart';
 
 import '../blocs/now_playing_bloc.dart';
@@ -121,17 +120,6 @@ class _NowPlayingState extends State<NowPlaying> {
                         0.9,
                       ],
                     ),
-                  ),
-                ),
-                const Positioned(
-                  top: 0,
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  child: Icon(
-                    FontAwesomeIcons.circlePlay,
-                    color: style.Colors.secondColor,
-                    size: 40.0,
                   ),
                 ),
                 Positioned(

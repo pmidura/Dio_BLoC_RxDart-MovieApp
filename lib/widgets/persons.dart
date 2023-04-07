@@ -54,7 +54,7 @@ class _PersonsState extends State<Persons> {
     ],
   );
 
-   Widget _buildLoadingWidget() => Center(
+  Widget _buildLoadingWidget() => Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const <Widget>[

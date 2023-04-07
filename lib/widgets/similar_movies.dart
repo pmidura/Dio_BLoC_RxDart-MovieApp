@@ -2,23 +2,34 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../blocs/movies_bloc.dart';
+import '../blocs/movie_similar_bloc.dart';
 import '../models/movie.dart';
 import '../models/movie_response.dart';
 import '../styles/theme.dart' as style;
 
-class TopMovies extends StatefulWidget {
-  const TopMovies({super.key});
+class SimilarMovies extends StatefulWidget {
+  final int id;
+
+  const SimilarMovies({
+    super.key,
+    required this.id,
+  });
 
   @override
-  State<TopMovies> createState() => _TopMoviesState();
+  State<SimilarMovies> createState() => _SimilarMoviesState();
 }
 
-class _TopMoviesState extends State<TopMovies> {
+class _SimilarMoviesState extends State<SimilarMovies> {
   @override
   void initState() {
     super.initState();
-    moviesBloc.getMovies();
+    similarMoviesBloc.getSimilarMovies(widget.id);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    similarMoviesBloc.drainStream();
   }
 
   @override
@@ -28,7 +39,7 @@ class _TopMoviesState extends State<TopMovies> {
       const Padding(
         padding: EdgeInsets.only(left: 10.0, top: 20.0),
         child: Text(
-          "TOP RATED MOVIES",
+          "SIMILAR MOVIES",
           style: TextStyle(
             color: style.Colors.titleColor,
             fontWeight: FontWeight.w500,
@@ -38,7 +49,7 @@ class _TopMoviesState extends State<TopMovies> {
       ),
       const SizedBox(height: 5.0),
       StreamBuilder<MovieResponse>(
-        stream: moviesBloc.subject.stream,
+        stream: similarMoviesBloc.subject.stream,
         builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.error.isNotEmpty) {
@@ -128,9 +139,7 @@ class _TopMoviesState extends State<TopMovies> {
                 SizedBox(
                   width: 100.0,
                   child: Text(
-                    movies[index].title.length > 18
-                    ? "${movies[index].title.substring(0, 15)}..."
-                    : movies[index].title,
+                    movies[index].title,
                     maxLines: 2,
                     style: const TextStyle(
                       height: 1.4,
