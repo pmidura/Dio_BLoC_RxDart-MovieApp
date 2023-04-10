@@ -272,7 +272,116 @@ class MovieDetailScreen extends StatelessWidget {
             ],
           ),
         ),
-
+        const SizedBox(height: 20.0),
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: Text(
+            "ABOUT MOVIE",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+              color: Colors.white.withOpacity(0.5),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Status:",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white.withOpacity(0.5),
+                    ),
+                  ),
+                  const Text(
+                    "movie.status",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Budget:",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white.withOpacity(0.5),
+                    ),
+                  ),
+                  const Text(
+                    "\$ movie.budget",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Revenue:",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white.withOpacity(0.5),
+                    ),
+                  ),
+                  const Text(
+                    "\$ movie.revenue",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20.0),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.05),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, top: 10.0),
+                child: Text(
+                  "SIMILAR MOVIES",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14.0,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              const Padding(
+                padding: EdgeInsets.only(left: 2.0),
+                // child: RepositoryProvider.value(
+                //   value: movieRepo,
+                //   child: SimilarMovies(),
+                // ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20.0),
       ],
     ),
   );
@@ -300,7 +409,7 @@ class MovieDetailScreen extends StatelessWidget {
 
 
     //     expandedHeight: 200.0,
-    //     slivers: <Widget>[
+    //     slivers: [
     //       SliverAppBar(
     //         backgroundColor: style.Colors.mainColor,
     //         expandedHeight: 200.0,
@@ -316,7 +425,7 @@ class MovieDetailScreen extends StatelessWidget {
     //             ),
     //           ),
     //           background: Stack(
-    //             children: <Widget>[
+    //             children: [
     //               Container(
     //                 decoration: BoxDecoration(
     //                   shape: BoxShape.rectangle,
@@ -354,7 +463,7 @@ class MovieDetailScreen extends StatelessWidget {
     //               padding: const EdgeInsets.only(left: 10.0, top: 20.0),
     //               child: Row(
     //                 crossAxisAlignment: CrossAxisAlignment.center,
-    //                 children: <Widget>[
+    //                 children: [
     //                   Text(
     //                     movie.rating.toString(),
     //                     style: const TextStyle(
@@ -420,7 +529,7 @@ class MovieDetailScreen extends StatelessWidget {
 
   // Widget _buildErrorWidget(String error) => Center(
   //   child: Column(
-  //     children: <Widget>[
+  //     children: [
   //       Text(
   //         error,
   //       ),

@@ -15,9 +15,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: style.Colors.mainColor,
+    appBar: AppBar(
+      title: const Text("Movie App"),
+      centerTitle: true,
+      backgroundColor: style.Colors.mainColor,
+    ),
     body: ListView(
-      // padding: EdgeInsets.zero,
-      children: <Widget>[
+      children: [
         NowPlaying(movieRepo: movieRepo),
         Genres(movieRepo: movieRepo),
         Persons(movieRepo: movieRepo),

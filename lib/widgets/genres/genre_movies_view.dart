@@ -44,7 +44,7 @@ class GenreMoviesView extends StatelessWidget {
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                    children: [
                       movies[index].poster.isEmpty ?
                       Container(
                         width: 120.0,
@@ -56,7 +56,7 @@ class GenreMoviesView extends StatelessWidget {
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
+                          children: const [
                             Icon(
                               EvaIcons.filmOutline,
                               color: Colors.white,
@@ -95,7 +95,7 @@ class GenreMoviesView extends StatelessWidget {
                       ),
                       const SizedBox(height: 5.0),
                       Row(
-                        children: <Widget>[
+                        children: [
                           Text(
                             movies[index].rating.toString(),
                             style: const TextStyle(
@@ -136,7 +136,7 @@ class GenreMoviesView extends StatelessWidget {
   Widget _buildLoadingWidget() => Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const <Widget>[
+      children: const [
         SizedBox(
           height: 25.0,
           width: 25.0,

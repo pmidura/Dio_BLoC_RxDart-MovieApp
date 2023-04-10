@@ -14,7 +14,7 @@ class TopMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
+    children: [
       const Padding(
         padding: EdgeInsets.only(left: 10.0, top: 20.0),
         child: Text(

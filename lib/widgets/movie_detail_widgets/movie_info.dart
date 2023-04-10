@@ -50,7 +50,7 @@
 //   Widget _buildLoadingWidget() => Center(
 //     child: Column(
 //       mainAxisAlignment: MainAxisAlignment.center,
-//       children: const <Widget>[
+//       children: const [
 //         SizedBox(
 //           height: 25.0,
 //           width: 25.0,
@@ -74,15 +74,15 @@
 
 //     return Column(
 //       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: <Widget>[
+//       children: [
 //         Padding(
 //           padding: const EdgeInsets.only(left: 10.0, right: 10.0),
 //           child: Row(
 //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: <Widget>[
+//             children: [
 //               Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: <Widget>[
+//                 children: [
 //                   const Text(
 //                     "BUDGET",
 //                     style: TextStyle(
@@ -104,7 +104,7 @@
 //               ),
 //               Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: <Widget>[
+//                 children: [
 //                   const Text(
 //                     "DURATION",
 //                     style: TextStyle(
@@ -126,7 +126,7 @@
 //               ),
 //               Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: <Widget>[
+//                 children: [
 //                   const Text(
 //                     "RELEASE DATE",
 //                     style: TextStyle(
@@ -154,7 +154,7 @@
 //           padding: const EdgeInsets.only(left: 10.0),
 //           child: Column(
 //             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: <Widget>[
+//             children: [
 //               const Text(
 //                 "GENRES",
 //                 style: TextStyle(

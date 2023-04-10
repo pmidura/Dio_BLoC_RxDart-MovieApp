@@ -35,7 +35,7 @@ class GenresView extends StatelessWidget {
   Widget _buildLoadingWidget() => Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const <Widget>[
+      children: const [
         SizedBox(
           height: 25.0,
           width: 25.0,

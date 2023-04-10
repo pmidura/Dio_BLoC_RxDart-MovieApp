@@ -32,7 +32,7 @@ class NowPlayingView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const <Widget>[
+              children: const [
                 Text("No movies"),
               ],
             ),
@@ -53,7 +53,7 @@ class NowPlayingView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: state.movies.take(5).length,
                 itemBuilder: (context, index) => Stack(
-                  children: <Widget>[
+                  children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 220,
@@ -88,7 +88,7 @@ class NowPlayingView extends StatelessWidget {
                         width: 250.0,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
+                          children: [
                             Text(
                               state.movies[index].title,
                               style: const TextStyle(
@@ -116,7 +116,7 @@ class NowPlayingView extends StatelessWidget {
   Widget _buildLoadingWidget() => Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const <Widget>[
+      children: const [
         SizedBox(
           height: 25.0,
           width: 25.0,

@@ -19,7 +19,7 @@
 //   Widget build(BuildContext context) => Scaffold(
 //     backgroundColor: Colors.black,
 //     body: Stack(
-//       children: <Widget>[
+//       children: [
 //         Center(
 //           child: YoutubePlayer(controller: widget.controller),
 //         ),

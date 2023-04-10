@@ -34,7 +34,7 @@ class PersonsView extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10.0, right: 10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
+                children: [
                   persons[index].profileImg.isEmpty ?
                   Container(
                     width: 70.0,
@@ -92,7 +92,7 @@ class PersonsView extends StatelessWidget {
   Widget _buildLoadingWidget() => Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const <Widget>[
+      children: const [
         SizedBox(
           height: 25.0,
           width: 25.0,

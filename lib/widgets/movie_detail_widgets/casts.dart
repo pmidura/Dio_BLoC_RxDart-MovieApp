@@ -32,7 +32,7 @@
 
 //   @override
 //   Widget build(BuildContext context) => Column(
-//     children: <Widget>[
+//     children: [
 //       const Padding(
 //         padding: EdgeInsets.only(left: 10.0, top: 20.0),
 //         child: Text(
@@ -66,7 +66,7 @@
 //   Widget _buildLoadingWidget() => Center(
 //     child: Column(
 //       mainAxisAlignment: MainAxisAlignment.center,
-//       children: const <Widget>[
+//       children: const [
 //         SizedBox(
 //           height: 25.0,
 //           width: 25.0,
@@ -101,7 +101,7 @@
 //             onTap: () {},
 //             child: Column(
 //               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: <Widget>[
+//               children: [
 //                 Container(
 //                   width: 70.0,
 //                   height: 70.0,

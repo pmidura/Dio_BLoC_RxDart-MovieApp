@@ -39,7 +39,7 @@ class _GenresListState extends State<GenresList> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    height: 307.0,
+    height: 300.0,
     child: DefaultTabController(
       length: widget.genres.length,
       child: Scaffold(

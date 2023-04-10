@@ -35,7 +35,7 @@
 //   @override
 //   Widget build(BuildContext context) => Column(
 //     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: <Widget>[
+//     children: [
 //       const Padding(
 //         padding: EdgeInsets.only(left: 10.0, top: 20.0),
 //         child: Text(
@@ -69,7 +69,7 @@
 //   Widget _buildLoadingWidget() => Center(
 //     child: Column(
 //       mainAxisAlignment: MainAxisAlignment.center,
-//       children: const <Widget>[
+//       children: const [
 //         SizedBox(
 //           height: 25.0,
 //           width: 25.0,
@@ -103,7 +103,7 @@
 //           itemBuilder:(context, index) => Padding(
 //             padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, right: 10.0),
 //             child: Column(
-//               children: <Widget>[
+//               children: [
 //                 movies[index].poster.isEmpty ?
 //                 Container(
 //                   width: 120.0,
@@ -114,7 +114,7 @@
 //                     shape: BoxShape.rectangle,
 //                   ),
 //                   child: Column(
-//                     children: const <Widget>[
+//                     children: const [
 //                       Icon(
 //                         EvaIcons.filmOutline,
 //                         color: Colors.white,
@@ -151,7 +151,7 @@
 //                 ),
 //                 const SizedBox(height: 5.0),
 //                 Row(
-//                   children: <Widget>[
+//                   children: [
 //                     Text(
 //                       movies[index].rating.toString(),
 //                       style: const TextStyle(
