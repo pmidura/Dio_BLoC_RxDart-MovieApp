@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../models/cast_response.dart';
-import '../models/genre_response.dart';
-import '../models/movie_response.dart';
-import '../models/movie_detail_response.dart';
-import '../models/person_response.dart';
-import '../models/video_response.dart';
+import '../models/cast/cast_response.dart';
+import '../models/genre/genre_response.dart';
+import '../models/movie/movie_response.dart';
+import '../models/movie_detail/movie_detail_response.dart';
+import '../models/person/person_response.dart';
+import '../models/video/video_response.dart';
 
 class MovieRepo {
   final String apiKey = "866f10c32b5771ad535d1c1bca14038a";

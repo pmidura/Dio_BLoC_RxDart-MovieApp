@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../repos/movie_repo.dart';
 import '../screens/home_screen.dart';
 
 void main() {
@@ -10,17 +11,21 @@ void main() {
     statusBarColor: Colors.transparent,
   ));
 
-  runApp(const MyApp());
+  final movieRepo = MovieRepo();
+
+  runApp(MyApp(movieRepo: movieRepo));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.movieRepo});
+
+  final MovieRepo movieRepo;
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: HomeScreen(movieRepo: movieRepo),
     );
   }
 }

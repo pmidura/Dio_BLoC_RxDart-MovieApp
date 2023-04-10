@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 
+import '../repos/movie_repo.dart';
 import '../styles/theme.dart' as style;
-import '../widgets/genres.dart';
-import '../widgets/now_playing.dart';
-import '../widgets/persons.dart';
-import '../widgets/top_movies.dart';
+import '../widgets/genres/genres.dart';
+import '../widgets/now_playing/now_playing.dart';
+import '../widgets/persons/persons.dart';
+import '../widgets/top_movies/top_movies.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key, required this.movieRepo});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  final MovieRepo movieRepo;
 
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: style.Colors.mainColor,
     body: ListView(
-      children: const <Widget>[
-        NowPlaying(),
-        Genres(),
-        Persons(),
-        TopMovies(),
+      // padding: EdgeInsets.zero,
+      children: <Widget>[
+        NowPlaying(movieRepo: movieRepo),
+        Genres(movieRepo: movieRepo),
+        Persons(movieRepo: movieRepo),
+        TopMovies(movieRepo: movieRepo,),
       ],
     ),
   );
