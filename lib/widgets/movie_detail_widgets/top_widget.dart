@@ -2,16 +2,22 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../blocs/movie_detail/movie_detail_cubit.dart';
+import '../../blocs/movie_videos/movie_videos_cubit.dart';
+import '../../screens/video_player/video_player.dart';
+import '../../styles/theme.dart' as style;
 
 class TopWidget extends StatelessWidget {
   const TopWidget({
     super.key,
-    required this.state,
+    required this.movieState,
+    required this.videoState,
   });
 
-  final MovieDetailState state;
+  final MovieDetailState movieState;
+  final MovieVideosState videoState;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -37,7 +43,7 @@ class TopWidget extends StatelessWidget {
               child: FadeInImage.memoryNetwork(
                 fit: BoxFit.cover,
                 placeholder: kTransparentImage,
-                image: "https://image.tmdb.org/t/p/original/${state.movie.backPoster}",
+                image: "https://image.tmdb.org/t/p/original/${movieState.movie.backPoster}",
               ),
             ),
           ],
@@ -97,7 +103,7 @@ class TopWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5.0),
                           child: FadeInImage.memoryNetwork(
                             placeholder: kTransparentImage,
-                            image: "https://image.tmdb.org/t/p/w200/${state.movie.poster}",
+                            image: "https://image.tmdb.org/t/p/w200/${movieState.movie.poster}",
                           ),
                         ),
                       ),
@@ -112,7 +118,7 @@ class TopWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        state.movie.title,
+                        movieState.movie.title,
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.5),
                           fontSize: 18.0,
@@ -124,7 +130,7 @@ class TopWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Release date: ${state.movie.releaseDate}",
+                            "Release date: ${movieState.movie.releaseDate}",
                             style: TextStyle(
                               color: Colors.white.withOpacity(0.5),
                               fontSize: 12.0,
@@ -152,6 +158,40 @@ class TopWidget extends StatelessWidget {
                 size: 25.0,
               ),
             ),
+          ),
+        ),
+        Positioned(
+          top: 0.0,
+          bottom: 0.0,
+          left: 0.0,
+          right: 0.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SafeArea(
+                child: IconButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VideoPlayer(
+                        controller: YoutubePlayerController(
+                          initialVideoId: videoState.videos[0].key,
+                          flags: const YoutubePlayerFlags(
+                            autoPlay: true,
+                          ),
+                        ),
+                        movieId: movieState.movie.id,
+                      ),
+                    ),
+                  ),
+                  icon: const Icon(
+                    Icons.play_arrow_rounded,
+                    color: style.Colors.secondColor,
+                    size: 50.0,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

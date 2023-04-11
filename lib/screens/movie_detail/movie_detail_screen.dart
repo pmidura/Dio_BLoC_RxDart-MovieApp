@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/movie_detail/movie_detail_cubit.dart';
+import '../../blocs/movie_detail/movie_detail_cubit.dart' as movie_cubit;
+import '../../blocs/movie_videos/movie_videos_cubit.dart' as video_cubit;
 import '../../repos/movie_repo.dart';
 import '../../styles/theme.dart' as style;
 import '../../widgets/additional_widgets/error.dart';
@@ -25,27 +26,28 @@ class MovieDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<MovieDetailCubit>().state;
+    final movieState = context.watch<movie_cubit.MovieDetailCubit>().state;
+    final videoState = context.watch<video_cubit.MovieVideosCubit>().state;
 
-    switch (state.status) {
-      case ListStatus.loading:
+    switch (movieState.status) {
+      case movie_cubit.ListStatus.loading:
         return loadingWidget();
-      case ListStatus.failure:
-        return errorWidget(state.status.toString());
-      case ListStatus.success:
+      case movie_cubit.ListStatus.failure:
+        return errorWidget(movieState.status.toString());
+      case movie_cubit.ListStatus.success:
         return Scaffold(
           backgroundColor: style.Colors.mainColor,
           body: ListView(
             padding: EdgeInsets.zero,
             children: [
-              TopWidget(state: state),
-              InfoOverview(state: state),
+              TopWidget(movieState: movieState, videoState: videoState),
+              InfoOverview(state: movieState),
               const SizedBox(height: 10.0),
               CastsDetailProvider(movieRepo: movieRepo, movieId: movieId),
               const SizedBox(height: 20.0),
               const AboutMovie(),
               const SizedBox(height: 10.0),
-              AboutInfo(state: state),
+              AboutInfo(state: movieState),
               const SizedBox(height: 20.0),
               SimilarMoviesProvider(movieRepo: movieRepo, movieId: movieId),
               const SizedBox(height: 20.0),
@@ -56,26 +58,4 @@ class MovieDetailScreen extends StatelessWidget {
         return loadingWidget();
     }
   }
-
-  // Widget _buildVideoWidget(VideoResponse data) {
-  //   List<Video> videos = data.videos;
-    
-  //   return FloatingActionButton(
-  //     onPressed: () => Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => VideoPlayer(
-  //           controller: YoutubePlayerController(
-  //             initialVideoId: videos[0].key,
-  //             flags: const YoutubePlayerFlags(
-  //               autoPlay: true,
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //     backgroundColor: style.Colors.secondColor,
-  //     child: const Icon(Icons.play_arrow),
-  //   );
-  // }
 }
