@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/now_playing/now_playing_cubit.dart';
-import '../../repos/movie_repo.dart';
+import '../../../blocs/now_playing/now_playing_cubit.dart';
+import '../../../repos/movie_repo.dart';
 import 'now_playing_view.dart';
 
 class NowPlaying extends StatelessWidget {

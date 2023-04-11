@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/persons/persons_cubit.dart';
-import '../../repos/movie_repo.dart';
-import '../../styles/theme.dart' as style;
-import 'persons_view.dart';
+import '../../../blocs/movies/movies_cubit.dart';
+import '../../../repos/movie_repo.dart';
+import '../../../styles/theme.dart' as style;
+import 'top_movies_view.dart';
 
-class Persons extends StatelessWidget {
-  const Persons({super.key, required this.movieRepo});
-
+class TopMovies extends StatelessWidget {
+  const TopMovies({super.key, required this.movieRepo});
+  
   final MovieRepo movieRepo;
-
+  
   @override
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,7 +18,7 @@ class Persons extends StatelessWidget {
       const Padding(
         padding: EdgeInsets.only(left: 10.0, top: 20.0),
         child: Text(
-          "TRENDING PERSONS ON THIS WEEK",
+          "TOP RATED MOVIES",
           style: TextStyle(
             color: style.Colors.titleColor,
             fontWeight: FontWeight.w500,
@@ -30,8 +30,8 @@ class Persons extends StatelessWidget {
       RepositoryProvider.value(
         value: movieRepo,
         child: BlocProvider(
-          create: (_) => PersonsCubit(repo: movieRepo)..getPersons(),
-          child: PersonsView(movieRepo: movieRepo),
+          create: (_) => MoviesCubit(repo: movieRepo)..getMovies(),
+          child: TopMoviesView(movieRepo: movieRepo),
         ),
       ),
     ],

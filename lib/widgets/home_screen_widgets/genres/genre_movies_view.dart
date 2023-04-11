@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../blocs/movies_by_genre/movies_by_genre_cubit.dart';
-import '../../models/movie/movie.dart';
-import '../../repos/movie_repo.dart';
-import '../../screens/movie_detail_screen.dart';
-import '../../styles/theme.dart' as style;
+import '../../../blocs/movies_by_genre/movies_by_genre_cubit.dart';
+import '../../../models/movie/movie.dart';
+import '../../../repos/movie_repo.dart';
+import '../../../screens/movie_detail/movie_provider.dart';
+import '../../../styles/theme.dart' as style;
+import '../../additional_widgets/error.dart';
+import '../../additional_widgets/loading.dart';
 
 class GenreMoviesView extends StatelessWidget {
   const GenreMoviesView({super.key, required this.movieRepo});
@@ -21,9 +23,9 @@ class GenreMoviesView extends StatelessWidget {
 
     switch (state.status) {
       case ListStatus.loading:
-        return _buildLoadingWidget();
+        return loadingWidget();
       case ListStatus.failure:
-        return _buildErrorWidget(state.status.toString());
+        return errorWidget(state.status.toString());
       case ListStatus.success:
         if (movies.isEmpty) {
           return const Text("No Movies");
@@ -39,8 +41,10 @@ class GenreMoviesView extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
-                      // builder: (context) => MovieDetailScreen(movie: movies[index], movieRepo: movieRepo),
-                      builder: (context) => MovieProvider(movieRepo: movieRepo, movieId: movies[index].id),
+                      builder: (context) => MovieProvider(
+                        movieRepo: movieRepo,
+                        movieId: movies[index].id,
+                      ),
                     ));
                   },
                   child: Column(
@@ -130,29 +134,7 @@ class GenreMoviesView extends StatelessWidget {
           );
         }
       default:
-        return _buildLoadingWidget();
+        return loadingWidget();
     }
   }
-  
-  Widget _buildLoadingWidget() => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(),
-        ),
-      ],
-    ),
-  );
-  
-  Widget _buildErrorWidget(String error) => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occured: $error"),
-      ],
-    ),
-  );
 }

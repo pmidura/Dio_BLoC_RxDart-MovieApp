@@ -1,38 +1,19 @@
-import 'package:dio_bloc_rxdart_movie_app/blocs/casts/casts_cubit.dart';
-import 'package:dio_bloc_rxdart_movie_app/repos/movie_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class Casts extends StatelessWidget {
+import '../../../blocs/casts/casts_cubit.dart';
+import '../../../repos/movie_repo.dart';
+import '../../additional_widgets/error.dart';
+import '../../additional_widgets/loading.dart';
+
+class CastsDetailView extends StatelessWidget {
   final int movieId;
   final MovieRepo movieRepo;
 
-  const Casts({
-    super.key,
-    required this.movieId,
-    required this.movieRepo,
-  });
-
-  @override
-  Widget build(BuildContext context) => BlocProvider(
-    create: (_) => CastsCubit(
-      repo: context.read<MovieRepo>(),
-    )..fetchCasts(movieId),
-    child: CastsView(
-      movieId: movieId,
-      movieRepo: movieRepo,
-    ),
-  );
-}
-
-class CastsView extends StatelessWidget {
-  final int movieId;
-  final MovieRepo movieRepo;
-
-  const CastsView({
+  const CastsDetailView({
     super.key,
     required this.movieId,
     required this.movieRepo,
@@ -44,12 +25,12 @@ class CastsView extends StatelessWidget {
 
     switch (state.status) {
       case ListStatus.loading:
-        return _buildLoadingWidget();
+        return loadingWidget();
       case ListStatus.failure:
-        return _buildErrorWidget(state.status.toString());
+        return errorWidget(state.status.toString());
       case ListStatus.success:
         return SizedBox(
-          height: 200.0,
+          height: 191.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: state.casts.length,
@@ -96,7 +77,7 @@ class CastsView extends StatelessWidget {
                                     ),
                                     imageErrorBuilder: (context, error, stackTrace) => const Icon(
                                       Icons.person,
-                                      color: Colors.black26,
+                                      color: Colors.transparent,
                                     ),
                                     placeholder: kTransparentImage,
                                     image: "https://image.tmdb.org/t/p/w300/${state.casts[index].img}",
@@ -121,21 +102,19 @@ class CastsView extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ), 
+                        ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 10.0),
-                  Positioned(
-                    child: SizedBox(
-                      width: 80.0,
-                      child: Text(
-                        state.casts[index].name,
-                        style: const TextStyle(
-                          fontSize: 11.0,
-                          color: Colors.white,
-                          height: 1.5,
-                        ),
+                  SizedBox(
+                    width: 80.0,
+                    child: Text(
+                      state.casts[index].name,
+                      style: const TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.white,
+                        height: 1.5,
                       ),
                     ),
                   ),
@@ -145,29 +124,7 @@ class CastsView extends StatelessWidget {
           ),
         );
       default:
-        return _buildLoadingWidget();
+        return loadingWidget();
     }
   }
-  
-  Widget _buildLoadingWidget() => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(),
-        ),
-      ],
-    ),
-  );
-
-  Widget _buildErrorWidget(String error) => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occured: $error"),
-      ],
-    ),
-  );
 }

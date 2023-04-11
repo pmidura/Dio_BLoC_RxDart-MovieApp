@@ -1,55 +1,32 @@
-import 'package:dio_bloc_rxdart_movie_app/blocs/movie_similar/movie_similar_cubit.dart';
-import 'package:dio_bloc_rxdart_movie_app/repos/movie_repo.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../styles/theme.dart' as style;
+import '../../../blocs/movies/movies_cubit.dart';
+import '../../../models/movie/movie.dart';
+import '../../../repos/movie_repo.dart';
+import '../../../styles/theme.dart' as style;
+import '../../additional_widgets/error.dart';
+import '../../additional_widgets/loading.dart';
 
-class SimilarMovies extends StatelessWidget {
-  final int movieId;
+class TopMoviesView extends StatelessWidget {
+  const TopMoviesView({super.key, required this.movieRepo});
+
   final MovieRepo movieRepo;
-
-  const SimilarMovies({
-    super.key,
-    required this.movieId,
-    required this.movieRepo,
-  });
-
-  @override
-  Widget build(BuildContext context) => BlocProvider(
-    create: (_) => MovieSimilarCubit(
-      repo: context.read<MovieRepo>(),
-    )..fetchList(movieId),
-    child: SimilarMoviesView(
-      movieId: movieId,
-      movieRepo: movieRepo,
-    ),
-  );
-}
-
-class SimilarMoviesView extends StatelessWidget {
-  final int movieId;
-  final MovieRepo movieRepo;
-
-  const SimilarMoviesView({
-    super.key,
-    required this.movieId,
-    required this.movieRepo,
-  });
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<MovieSimilarCubit>().state;
+    final state = context.watch<MoviesCubit>().state;
+    final List<Movie> movies = state.movies;
 
     switch (state.status) {
       case ListStatus.loading:
-        return _buildLoadingWidget();
+        return loadingWidget();
       case ListStatus.failure:
-        return _buildErrorWidget(state.status.toString());
+        return errorWidget(state.status.toString());
       case ListStatus.success:
-        if (state.movies.isEmpty) {
+        if (movies.isEmpty) {
           return const Text("No Movies");
         } else {
           return Container(
@@ -57,13 +34,13 @@ class SimilarMoviesView extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10.0),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: state.movies.length,
+              itemCount: movies.length,
               itemBuilder:(context, index) => Padding(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, right: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    state.movies[index].poster.isEmpty ?
+                    movies[index].poster.isEmpty ?
                     Container(
                       width: 120.0,
                       height: 180.0,
@@ -89,7 +66,7 @@ class SimilarMoviesView extends StatelessWidget {
                         borderRadius: const BorderRadius.all(Radius.circular(2.0)),
                         shape: BoxShape.rectangle,
                         image: DecorationImage(
-                          image: NetworkImage("https://image.tmdb.org/t/p/w200/${state.movies[index].poster}"),
+                          image: NetworkImage("https://image.tmdb.org/t/p/w200/${movies[index].poster}"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -98,9 +75,9 @@ class SimilarMoviesView extends StatelessWidget {
                     SizedBox(
                       width: 100.0,
                       child: Text(
-                        state.movies[index].title.length > 18
-                        ? "${state.movies[index].title.substring(0, 15)}..."
-                        : state.movies[index].title,
+                        movies[index].title.length > 18
+                        ? "${movies[index].title.substring(0, 15)}..."
+                        : movies[index].title,
                         maxLines: 2,
                         style: const TextStyle(
                           height: 1.4,
@@ -114,7 +91,7 @@ class SimilarMoviesView extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          state.movies[index].rating.toStringAsFixed(2),
+                          movies[index].rating.toString(),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 10.0,
@@ -124,7 +101,7 @@ class SimilarMoviesView extends StatelessWidget {
                         const SizedBox(width: 5.0),
                         RatingBar.builder(
                           itemSize: 8.0,
-                          initialRating: state.movies[index].rating / 2,
+                          initialRating: movies[index].rating / 2,
                           minRating: 1,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
@@ -145,29 +122,7 @@ class SimilarMoviesView extends StatelessWidget {
           );
         }
       default:
-        return _buildLoadingWidget();
+        return loadingWidget();
     }
   }
-
-  Widget _buildLoadingWidget() => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(),
-        ),
-      ],
-    ),
-  );
-
-  Widget _buildErrorWidget(String error) => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occured: $error"),
-      ],
-    ),
-  );
 }

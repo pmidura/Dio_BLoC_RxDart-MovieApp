@@ -29,10 +29,8 @@ class MyApp extends StatelessWidget {
   final MovieRepo movieRepo;
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(movieRepo: movieRepo),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: HomeScreen(movieRepo: movieRepo),
+  );
 }

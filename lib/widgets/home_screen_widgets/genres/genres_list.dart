@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../models/genre/genre.dart';
-import '../../repos/movie_repo.dart';
-import '../../styles/theme.dart' as style;
+import '../../../models/genre/genre.dart';
+import '../../../repos/movie_repo.dart';
+import '../../../styles/theme.dart' as style;
 import 'genre_movies.dart';
 
 class GenresList extends StatefulWidget {
@@ -72,7 +72,12 @@ class _GenresListState extends State<GenresList> with SingleTickerProviderStateM
         body: TabBarView(
           controller: _tabController,
           physics: const NeverScrollableScrollPhysics(),
-          children: widget.genres.map((Genre genre) => GenreMovies(genreId: genre.id, movieRepo: widget.movieRepo)).toList(),
+          children: widget.genres.map(
+            (Genre genre) => GenreMovies(
+              genreId: genre.id,
+              movieRepo: widget.movieRepo,
+            ),
+          ).toList(),
         ),
       ),
     ),

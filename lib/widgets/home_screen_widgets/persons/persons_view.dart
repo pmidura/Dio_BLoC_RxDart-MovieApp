@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../blocs/persons/persons_cubit.dart';
-import '../../models/person/person.dart';
-import '../../repos/movie_repo.dart';
-import '../../styles/theme.dart' as style;
+import '../../../blocs/persons/persons_cubit.dart';
+import '../../../models/person/person.dart';
+import '../../../repos/movie_repo.dart';
+import '../../../styles/theme.dart' as style;
+import '../../additional_widgets/error.dart';
+import '../../additional_widgets/loading.dart';
 
 class PersonsView extends StatelessWidget {
   const PersonsView({super.key, required this.movieRepo});
@@ -19,9 +21,9 @@ class PersonsView extends StatelessWidget {
 
     switch (state.status) {
       case ListStatus.loading:
-        return _buildLoadingWidget();
+        return loadingWidget();
       case ListStatus.failure:
-        return _buildErrorWidget(state.status.toString());
+        return errorWidget(state.status.toString());
       case ListStatus.success:
         return Container(
           height: 130.0,
@@ -85,29 +87,7 @@ class PersonsView extends StatelessWidget {
           ),
         );
       default:
-        return _buildLoadingWidget();
+        return loadingWidget();
     }
   }
-  
-  Widget _buildLoadingWidget() => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(),
-        ),
-      ],
-    ),
-  );
-
-  Widget _buildErrorWidget(String error) => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occured: $error"),
-      ],
-    ),
-  );
 }

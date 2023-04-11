@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../repos/movie_repo.dart';
 import '../styles/theme.dart' as style;
-import '../widgets/genres/genres.dart';
-import '../widgets/now_playing/now_playing.dart';
-import '../widgets/persons/persons.dart';
-import '../widgets/top_movies/top_movies.dart';
+import '../widgets/home_screen_widgets/genres/genres.dart';
+import '../widgets/home_screen_widgets/now_playing/now_playing.dart';
+import '../widgets/home_screen_widgets/persons/persons.dart';
+import '../widgets/home_screen_widgets/top_movies/top_movies.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.movieRepo});

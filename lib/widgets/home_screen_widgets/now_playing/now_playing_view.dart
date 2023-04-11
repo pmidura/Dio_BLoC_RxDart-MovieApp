@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_indicator/page_indicator.dart';
 
-import '../../blocs/now_playing/now_playing_cubit.dart';
-import '../../repos/movie_repo.dart';
-import '../../styles/theme.dart' as style;
+import '../../../blocs/now_playing/now_playing_cubit.dart';
+import '../../../repos/movie_repo.dart';
+import '../../../styles/theme.dart' as style;
+import '../../additional_widgets/error.dart';
+import '../../additional_widgets/loading.dart';
 
 class NowPlayingView extends StatelessWidget {
   NowPlayingView({super.key, required this.movieRepo});
@@ -22,9 +24,9 @@ class NowPlayingView extends StatelessWidget {
 
     switch (state.status) {
       case ListStatus.loading:
-        return _buildLoadingWidget();
+        return loadingWidget();
       case ListStatus.failure:
-        return _buildErrorWidget(state.status.toString());
+        return errorWidget(state.status.toString());
       case ListStatus.success:
         if (state.movies.isEmpty) {
           return SizedBox(
@@ -109,29 +111,7 @@ class NowPlayingView extends StatelessWidget {
           );
         }
       default:
-        return _buildLoadingWidget();
+        return loadingWidget();
     }
   }
-  
-  Widget _buildLoadingWidget() => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(),
-        ),
-      ],
-    ),
-  );
-
-  Widget _buildErrorWidget(String error) => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occured: $error"),
-      ],
-    ),
-  );
 }

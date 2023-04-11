@@ -3,28 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../blocs/movies/movies_cubit.dart';
-import '../../models/movie/movie.dart';
-import '../../repos/movie_repo.dart';
-import '../../styles/theme.dart' as style;
+import '../../../blocs/movie_similar/movie_similar_cubit.dart';
+import '../../../repos/movie_repo.dart';
+import '../../../styles/theme.dart' as style;
+import '../../additional_widgets/error.dart';
+import '../../additional_widgets/loading.dart';
 
-class TopMoviesView extends StatelessWidget {
-  const TopMoviesView({super.key, required this.movieRepo});
-
+class SimilarMoviesView extends StatelessWidget {
+  final int movieId;
   final MovieRepo movieRepo;
+
+  const SimilarMoviesView({
+    super.key,
+    required this.movieId,
+    required this.movieRepo,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<MoviesCubit>().state;
-    final List<Movie> movies = state.movies;
+    final state = context.watch<MovieSimilarCubit>().state;
 
     switch (state.status) {
       case ListStatus.loading:
-        return _buildLoadingWidget();
+        return loadingWidget();
       case ListStatus.failure:
-        return _buildErrorWidget(state.status.toString());
+        return errorWidget(state.status.toString());
       case ListStatus.success:
-        if (movies.isEmpty) {
+        if (state.movies.isEmpty) {
           return const Text("No Movies");
         } else {
           return Container(
@@ -32,13 +37,13 @@ class TopMoviesView extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10.0),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: movies.length,
+              itemCount: state.movies.length,
               itemBuilder:(context, index) => Padding(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, right: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    movies[index].poster.isEmpty ?
+                    state.movies[index].poster.isEmpty ?
                     Container(
                       width: 120.0,
                       height: 180.0,
@@ -48,6 +53,7 @@ class TopMoviesView extends StatelessWidget {
                         shape: BoxShape.rectangle,
                       ),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
                           Icon(
                             EvaIcons.filmOutline,
@@ -64,7 +70,7 @@ class TopMoviesView extends StatelessWidget {
                         borderRadius: const BorderRadius.all(Radius.circular(2.0)),
                         shape: BoxShape.rectangle,
                         image: DecorationImage(
-                          image: NetworkImage("https://image.tmdb.org/t/p/w200/${movies[index].poster}"),
+                          image: NetworkImage("https://image.tmdb.org/t/p/w200/${state.movies[index].poster}"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -73,9 +79,9 @@ class TopMoviesView extends StatelessWidget {
                     SizedBox(
                       width: 100.0,
                       child: Text(
-                        movies[index].title.length > 18
-                        ? "${movies[index].title.substring(0, 15)}..."
-                        : movies[index].title,
+                        state.movies[index].title.length > 18
+                        ? "${state.movies[index].title.substring(0, 15)}..."
+                        : state.movies[index].title,
                         maxLines: 2,
                         style: const TextStyle(
                           height: 1.4,
@@ -89,7 +95,7 @@ class TopMoviesView extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          movies[index].rating.toString(),
+                          state.movies[index].rating.toStringAsFixed(1),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 10.0,
@@ -99,7 +105,7 @@ class TopMoviesView extends StatelessWidget {
                         const SizedBox(width: 5.0),
                         RatingBar.builder(
                           itemSize: 8.0,
-                          initialRating: movies[index].rating / 2,
+                          initialRating: state.movies[index].rating / 2,
                           minRating: 1,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
@@ -120,29 +126,7 @@ class TopMoviesView extends StatelessWidget {
           );
         }
       default:
-        return _buildLoadingWidget();
+        return loadingWidget();
     }
   }
-  
-  Widget _buildLoadingWidget() => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(),
-        ),
-      ],
-    ),
-  );
-
-  Widget _buildErrorWidget(String error) => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occured: $error"),
-      ],
-    ),
-  );
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/genres/genres_cubit.dart';
-import '../../repos/movie_repo.dart';
+import '../../../blocs/genres/genres_cubit.dart';
+import '../../../repos/movie_repo.dart';
 import 'genres_view.dart';
 
 class Genres extends StatelessWidget{
