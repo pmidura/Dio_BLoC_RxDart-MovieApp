@@ -36,6 +36,7 @@ class TopMoviesView extends StatelessWidget {
               itemBuilder:(context, index) => Padding(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, right: 10.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     movies[index].poster.isEmpty ?
                     Container(

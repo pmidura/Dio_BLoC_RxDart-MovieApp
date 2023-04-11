@@ -39,7 +39,8 @@ class GenreMoviesView extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => MovieDetailScreen(movie: movies[index], movieRepo: movieRepo),
+                      // builder: (context) => MovieDetailScreen(movie: movies[index], movieRepo: movieRepo),
+                      builder: (context) => MovieProvider(movieRepo: movieRepo, movieId: movies[index].id),
                     ));
                   },
                   child: Column(

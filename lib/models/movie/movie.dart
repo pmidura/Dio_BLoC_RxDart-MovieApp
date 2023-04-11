@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class Movie extends Equatable {
   final int id;
-  // final double popularity;
+  final num popularity;
   final String title;
   final String backPoster;
   final String poster;
@@ -11,7 +11,7 @@ class Movie extends Equatable {
   
   const Movie({
     required this.id,
-    // required this.popularity,
+    required this.popularity,
     required this.title,
     required this.backPoster,
     required this.poster,
@@ -21,7 +21,7 @@ class Movie extends Equatable {
 
   Movie.fromJson(Map<String, dynamic> json) :
     id = json["id"] ?? 0,
-    // popularity = json["popularity"] ?? 0.0,
+    popularity = json["popularity"] ?? 0,
     title = json["title"] ?? "",
     backPoster = json["backdrop_path"] ?? "",
     poster = json["poster_path"] ?? "",
@@ -31,7 +31,7 @@ class Movie extends Equatable {
   @override
   List<Object?> get props => [
     id,
-    // popularity,
+    popularity,
     title,
     backPoster,
     poster,
@@ -41,7 +41,7 @@ class Movie extends Equatable {
 
   static const empty = Movie(
     id: 0,
-    // popularity: 0.0,
+    popularity: 0,
     title: "",
     backPoster: "",
     poster: "",
